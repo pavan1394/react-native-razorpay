@@ -39,3 +39,7 @@ buck-out/
 \.buckd/
 android/app/libs
 android/keystores/debug.keystore
+android/.project
+android/.settings/
+example/SampleProject/android/.project
+example/SampleProject/android/.settings/
