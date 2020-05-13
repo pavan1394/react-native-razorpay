@@ -23,13 +23,6 @@ android {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation 'com.razorpay:checkout:1.5.12'
-    fileTree(dir: 'libs', include: '**/*.aar')
-            .each { File file ->
-                dependencies.add("compile", [
-                        name: file.name.lastIndexOf('.').with { it != -1 ? file.name[0..<it] : file.name },
-                        ext: 'aar'
-                ])
-            }
+    implementation fileTree(dir: "libs", include: ["*.aar"])
 }
 
