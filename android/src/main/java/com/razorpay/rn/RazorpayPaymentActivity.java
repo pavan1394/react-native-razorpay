@@ -1,6 +1,7 @@
 package com.razorpay.rn;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,7 +73,9 @@ public class RazorpayPaymentActivity extends Activity implements PaymentResultWi
          */
         ViewGroup rootview = (ViewGroup) this.findViewById(android.R.id.content);
         webview = new WebView(this);
-        webview.setScrollContainer(false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
+            webview.setScrollContainer(false);
+        }
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, RelativeLayout.LayoutParams.FILL_PARENT);
         webview.setLayoutParams(params);
         rootview.addView(webview);
@@ -148,11 +151,6 @@ public class RazorpayPaymentActivity extends Activity implements PaymentResultWi
         returnIntent.putExtra(Constants.PAYMENT_DATA, paymentData.getData().toString());
         this.setResult(RZP_RESULT_CODE, returnIntent);
         this.finish();
-    }
-
-    @Override 
-    public void onExternalWalletSelected(String walletName, PaymentData paymentData){
-      sendEvent("Razorpay::EXTERNAL_WALLET_SELECTED", paymentData.getData().toString());
     }
 
 }

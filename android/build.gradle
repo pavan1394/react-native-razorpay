@@ -1,6 +1,9 @@
 apply plugin: 'com.android.library'
 repositories {
     mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
 }
 def safeExtGet(prop, fallback) {
     rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
@@ -21,5 +24,12 @@ android {
 dependencies {
     implementation 'com.facebook.react:react-native:+'
     implementation 'com.razorpay:checkout:1.5.12'
+    fileTree(dir: 'libs', include: '**/*.aar')
+            .each { File file ->
+                dependencies.add("compile", [
+                        name: file.name.lastIndexOf('.').with { it != -1 ? file.name[0..<it] : file.name },
+                        ext: 'aar'
+                ])
+            }
 }
 
